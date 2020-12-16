@@ -1,0 +1,18 @@
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "SeyR5om6lqUfWcpRj+DbVbmlbKxZ3TA5W6l14XoDMtCLENXHGy+6nWP7rUDj7IHsGT2UXW19fXX3BZPq2WdOK48vGT8/+lpMMWekLw/+gCdH3xbtVXZ+94lDtQIOYb6E6wl70zKNLCWDSQzBBg/L4QaKSsxU3J2cZy0nyK9azc3jq5S67Arvrpf1HRsTdoaoGYeMQZPW1rCn0UK/uQTG9og4+QHcn3gNymuNsHGnZagCyQRme6JCoGAThqs/H2DnaHt23Oqpx53V+S1wQEvYVwA8uMVNIrjvFn/xhni1EQA+JUmterzz1T3v4sUUPvfAyRTg3xVLXCW2rtzRHfLyoxlaSWzhAjkfMkAlSXj8PJ9fLXfbPwVdyg45JZrpWPehvOfNQ6cAYH193g/I51O1JZbOhXvr20vvI0H7Dmn0qShxIYNbpTyGUwgTh1+1pWPbWh0XmHVpxdumhDtzfrY7L0I19HdC2VKlOW/x1wYRG5pkXxJzJ6V6KAGN64Ovre9C1lueVr2lBN+bjmjMW6hCirppt5nl5jMK02SPgmya96BlsXANOvacduewJQytXQDdI7oAS0nJuMUzEGf5U71Y8ldMo3guTbyX6Scx1UWuiFChWdAcBN0P1PPVenjvsF6AqWA3fhu+igsHZd0JcyxL8gsVF5qAyEVwn72sMJF5bXU="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "praveen-cognitree/internship-projects"
+      description: "<Your project description here>"
+    notification_email: praveen@cognitree.com
+    build_command_prepend: "./configure"
+    build_command: "make -j2"
+    branch_pattern: coverity_scan
